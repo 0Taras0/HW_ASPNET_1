@@ -1,33 +1,40 @@
 ﻿@model WebSmonder.Models.Category.CategoryDeleteViewModel
 
 @{
-	ViewData["Title"] = "Видалення категорії";
+    ViewData["Title"] = "Видалення категорії";
 }
 
 <div class="container">
     <form asp-action="Delete" method="post" class="p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
-        <h4 class="mb-4">Ви дійсно хочете видалити категорію</h4>
-
-
+        <h4 class="mb-4 text-center">Ви дійсно хочете видалити категорію?</h4>
 
         <!-- Назва категорії -->
         <div class="mb-3">
-            <label asp-for="Name" class="form-label">@Model.Name</label>
+            <label class="form-label">Назва категорії:</label>
+            <div class="form-control-plaintext fw-bold">@Model.Name</div>
         </div>
 
         <!-- Опис -->
         <div class="mb-3">
-            <label asp-for="Description" class="form-label">@Model.Description</label>
+            <label class="form-label">Опис:</label>
+            <div class="form-control-plaintext fw-bold">@Model.Description</div>
         </div>
 
-        <!-- Зображення (URL) -->
+        <!-- Зображення -->
         <div class="mb-3">
-            <label asp-for="ImageUrl" class="form-label">@Model.ImageUrl</label>
+            <label class="form-label">Зображення:</label>
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                    <div class="mt-2">
+                        <img src="@Model.ImageUrl" alt="Зображення категорії" class="img-fluid rounded" style="max-height: 200px;" />
+                    </div>
+            }
         </div>
 
-        <!-- Кнопка -->
-        <button type="submit" class="btn btn-danger">Видалити категорію</button>
-        <a asp-action="Index" class="btn btn-info">Скасувати</a>
+        <!-- Кнопки -->
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-danger">Видалити категорію</button>
+            <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+        </div>
     </form>
-
 </div>
