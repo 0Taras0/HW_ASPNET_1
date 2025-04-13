@@ -1,0 +1,35 @@
+﻿@model CategoryEditViewModel
+
+@{
+	ViewData["Title"] = "Редагування категорії";
+}
+
+<div class="container">
+    <form asp-action="Edit" method="post" class="p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
+        <h4 class="mb-4">Редагування категорії</h4>
+
+        <!-- Назва категорії -->
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control" placeholder="Введіть назву категорії" required>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- Опис -->
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label"></label>
+            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Введіть опис категорії"></textarea>
+        </div>
+
+        <!-- Зображення (URL) -->
+        <div class="mb-3">
+            <label asp-for="ImageUrl" class="form-label"></label>
+            <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg">
+        </div>
+
+        <!-- Кнопка -->
+        <button type="submit" class="btn btn-primary">Редагувати категорію</button>
+        <a asp-action="Index" class="btn btn-info">Скасувати</a>
+    </form>
+
+</div>

@@ -1,0 +1,33 @@
+﻿@model WebSmonder.Models.Category.CategoryDeleteViewModel
+
+@{
+	ViewData["Title"] = "Видалення категорії";
+}
+
+<div class="container">
+    <form asp-action="Delete" method="post" class="p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
+        <h4 class="mb-4">Ви дійсно хочете видалити категорію</h4>
+
+
+
+        <!-- Назва категорії -->
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">@Model.Name</label>
+        </div>
+
+        <!-- Опис -->
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">@Model.Description</label>
+        </div>
+
+        <!-- Зображення (URL) -->
+        <div class="mb-3">
+            <label asp-for="ImageUrl" class="form-label">@Model.ImageUrl</label>
+        </div>
+
+        <!-- Кнопка -->
+        <button type="submit" class="btn btn-danger">Видалити категорію</button>
+        <a asp-action="Index" class="btn btn-info">Скасувати</a>
+    </form>
+
+</div>
