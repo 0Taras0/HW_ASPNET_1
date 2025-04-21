@@ -2,13 +2,19 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
     <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    
-    @RenderBody()
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+		</main>
+	</div>
 
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

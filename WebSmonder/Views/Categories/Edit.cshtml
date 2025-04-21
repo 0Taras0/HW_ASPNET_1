@@ -1,17 +1,17 @@
 ﻿@model CategoryEditViewModel
 
 @{
-	ViewData["Title"] = "Редагування категорії";
+    ViewData["Title"] = "Редагування категорії";
 }
 
 <div class="container">
-    <form asp-action="Edit" method="post" class="p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
+    <form asp-action="Edit" enctype="multipart/form-data" method="post" class="p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
         <h4 class="mb-4">Редагування категорії</h4>
 
-        <!-- Назва категорії -->
+        <!-- Назва -->
         <div class="mb-3">
             <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control" placeholder="Введіть назву категорії" required>
+            <input asp-for="Name" class="form-control" placeholder="Введіть назву категорії" required />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
 
@@ -21,15 +21,137 @@
             <textarea asp-for="Description" class="form-control" rows="4" placeholder="Введіть опис категорії"></textarea>
         </div>
 
-        <!-- Зображення (URL) -->
+        <!-- Поточне зображення -->
         <div class="mb-3">
-            <label asp-for="ImageUrl" class="form-label"></label>
-            <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/image.jpg">
+            <label class="form-label">Прев'ю</label>
+            <img id="currentImage" src="@Model.ViewImage" class="img-thumbnail w-100" style="max-height: 400px; object-fit: contain;" />
         </div>
 
-        <!-- Кнопка -->
-        <button type="submit" class="btn btn-primary">Редагувати категорію</button>
-        <a asp-action="Index" class="btn btn-info">Скасувати</a>
-    </form>
+        <!-- Кнопка відкриття модального вікна -->
+        <div class="mb-3">
+            <button type="button" class="btn btn-outline-primary" id="openCropperModalBtn">Завантажити / Редагувати зображення</button>
+        </div>
 
+        <!-- Приховане поле для файлу -->
+        <input asp-for="ImageFile" type="file" class="d-none" id="ImageFile" accept="image/*" />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- Кнопки -->
+        <button type="submit" class="btn btn-primary">Редагувати категорію</button>
+        <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+    </form>
 </div>
+
+<div class="modal fade" id="cropperModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Обрізати зображення</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+            </div>
+            <div class="modal-body text-center d-flex justify-content-center">
+                <img id="cropperImage" class="img-fluid w-50" style="height: 50vh; width: 50vh; object-fit: contain;" />
+            </div>
+            <input type="file" id="selectNewImageBtn" class="form-control mt-3" accept="image/*" />
+            <div class="modal-footer">
+                <button type="button" id="saveCroppedBtn" class="btn btn-success" data-bs-dismiss="modal">Зберегти</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <script>
+        let cropper;
+        const openModalBtn = document.getElementById('openCropperModalBtn');
+        const imageInput = document.getElementById('ImageFile');
+        const selectNewImageBtn = document.getElementById('selectNewImageBtn');
+        const cropperImage = document.getElementById('cropperImage');
+        const currentImage = document.getElementById('currentImage');
+        const saveCroppedBtn = document.getElementById('saveCroppedBtn');
+        const cropperModal = new bootstrap.Modal(document.getElementById('cropperModal'));
+
+        openModalBtn.addEventListener('click', () => {
+            cropperImage.src = currentImage.src;
+            cropperModal.show();
+
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    if (cropper) cropper.destroy();
+
+                    cropper = new Cropper(cropperImage, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        autoCropArea: 1,
+                        responsive: true,
+                        movable: true,
+                        zoomable: true
+                    });
+                });
+            }, 100);
+        });
+
+        selectNewImageBtn.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                cropperImage.src = url;
+
+                cropperImage.onload = () => {
+                    if (cropper) cropper.destroy();
+                    cropper = new Cropper(cropperImage, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        autoCropArea: 1,
+                        responsive: true,
+                        movable: true,
+                        zoomable: true
+                    });
+                };
+            }
+        });
+
+        saveCroppedBtn.addEventListener('click', () => {
+            if (cropper) {
+                cropper.getCroppedCanvas({
+                    width: 500,
+                    height: 500
+                })
+                .toBlob(blob => {
+                    const file = new File([blob], "cropped.png", { type: "image/png" });
+
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    imageInput.files = dataTransfer.files;
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        currentImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }, 'image/png');
+            }
+        });
+
+
+        cropperModal.addEventListener('hidden.bs.modal', function () {
+            selectNewImageBtn.value = "";
+
+            cropperImage.src = "";
+
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        });
+
+    </script>
+}

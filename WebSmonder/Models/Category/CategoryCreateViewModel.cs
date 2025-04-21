@@ -9,7 +9,8 @@ namespace WebSmonder.Models.Category
 
         [Display(Name = "Опис")]
         public string? Description { get; set; } = string.Empty;
-        [Display(Name = "Url адреса фото")]
-        public string ImageUrl { get; set; } = string.Empty;
+
+        [Display(Name = "Оберіть фото")]
+        public IFormFile ImageFile { get; set; } = null!;
     }
 }
