@@ -81,5 +81,38 @@ namespace WebSmonder.Controllers
             var model = mapper.Map<AccountProfileViewModel>(user);
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Profile(AccountProfileViewModel model)
+        {
+            ModelState.Remove(nameof(model.Image));
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            string image = user.Image;
+            user = mapper.Map(model, user);
+            user.Image = image;
+            if (model.Image != null)
+            {
+                await imageService.DeleteImageAsync(user.Image);
+                user.Image = await imageService.SaveImageAsync(model.Image);
+            }
+            var result = await userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Profile");
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error.Description);
+            }
+            return View(model);
+        }
     }
 }

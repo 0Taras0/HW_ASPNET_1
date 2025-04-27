@@ -13,7 +13,6 @@
     <style>
         body {
         padding-top: 3rem;
-        padding-bottom: 3rem;
         }
         iframe[src*="somee.com"],
         script[src*="ads.mgmt.somee.com"],
@@ -31,6 +30,11 @@
 
         center {
             display: none !important;
+        }
+
+        .dynamic-height {
+            min-height: 100vh;
+            transition: min-height 0.3s ease;
         }
     </style>
 </head>
@@ -96,10 +100,16 @@
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 dynamic-height">
             @RenderBody()
 		</main>
 	</div>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">&copy; @DateTime.Now.Year - eAutoShop. Всі права захищено.</p>
+        </div>
+    </footer>
 
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>

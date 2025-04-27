@@ -9,7 +9,7 @@
 
     <div class="row p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
         <div class="offset-md-3 col-md-6">
-            <form asp-action="Profile">
+            <form asp-action="Profile" enctype="multipart/form-data">
                 <div class="d-flex flex-column align-items-center justify-content-center mb-3" style="position: relative;">
                     <div class="position-relative" style="width: 200px; height: 200px;">
                         <img loading="lazy" id="currentImage" src="/images/1200_@Model.ViewImage"
