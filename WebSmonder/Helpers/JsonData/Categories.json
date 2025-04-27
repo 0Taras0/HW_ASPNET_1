@@ -1,27 +1,102 @@
 [
-    {
-        "Name": "Пригодницькі",
-        "Description": "Мультфільми, сповнені захопливих пригод та подорожей.",
-        "Image": "https://tripmydream.cc/travelhub/travel/block_gallery/11/3087/default_113087.png"
-    },
-    {
-        "Name": "Комедійні",
-        "Description": "Мультфільми, що піднімуть настрій та розсмішать.",
-        "Image": "https://focus.ua/static/storage/thumbs/1200x630/e/9b/6b151b9a-6bae2967e0354bfa0a53c6aebfb5c9be.jpg?v=1328_1"
-    },
-    {
-        "Name": "Фентезі",
-        "Description": "Магічні світи та чарівні істоти чекають на вас.",
-        "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScenMcTNIGu5yj977bQGEaTcGPaX6MmjfxPQ&s"
-    },
-    {
-        "Name": "Наукова фантастика",
-        "Description": "Подорожі в космос та футуристичні технології.",
-        "Image": "https://lookintothe.space/images/202503/thumb_20250319_esa_swift_sail.jpg"
-    },
-    {
-        "Name": "Класика Disney",
-        "Description": "Найкращі класичні мультфільми від студії Disney.",
-        "Image": "https://uakino.me/uploads/dle_collections/og/6.png"
-    }
+  {
+    "Name": "Гальмівні колодки",
+    "Description": "Надійні гальмівні колодки для безпечного руху.",
+    "Image": "brake_pads.jpg"
+  },
+  {
+    "Name": "Масляний фільтр",
+    "Description": "Фільтр для очищення моторного масла.",
+    "Image": "oil_filter.jpg"
+  },
+  {
+    "Name": "Свічка запалювання",
+    "Description": "Якісні свічки для стабільної роботи двигуна.",
+    "Image": "spark_plug.jpg"
+  },
+  {
+    "Name": "Акумулятор",
+    "Description": "Потужні акумулятори для вашого автомобіля.",
+    "Image": "car_battery.webp"
+  },
+  {
+    "Name": "Повітряний фільтр",
+    "Description": "Фільтрація повітря для оптимальної роботи двигуна.",
+    "Image": "air_filter.webp"
+  },
+  {
+    "Name": "Гальмівні диски",
+    "Description": "Високоякісні диски для ефективного гальмування.",
+    "Image": "brake_discs.jpg"
+  },
+  {
+    "Name": "Амортизатори",
+    "Description": "Комфортна їзда завдяки якісним амортизаторам.",
+    "Image": "shock_absorbers.jpg"
+  },
+  {
+    "Name": "Ремінь ГРМ",
+    "Description": "Надійний ремінь газорозподільного механізму.",
+    "Image": "timing_belt.webp"
+  },
+  {
+    "Name": "Паливний насос",
+    "Description": "Стабільне постачання пального до двигуна.",
+    "Image": "fuel_pump.webp"
+  },
+  {
+    "Name": "Стартер",
+    "Description": "Надійний запуск двигуна в будь-яку погоду.",
+    "Image": "starter_motor.webp"
+  },
+  {
+    "Name": "Генератор",
+    "Description": "Забезпечення електроенергією всіх систем авто.",
+    "Image": "alternator.jpg"
+  },
+  {
+    "Name": "Радіатор",
+    "Description": "Ефективне охолодження двигуна.",
+    "Image": "radiator.jpg"
+  },
+  {
+    "Name": "Термостат",
+    "Description": "Контроль температурного режиму двигуна.",
+    "Image": "thermostat.jpg"
+  },
+  {
+    "Name": "Паливний фільтр",
+    "Description": "Очищення пального від домішок.",
+    "Image": "fuel_filter.jpg"
+  },
+  {
+    "Name": "Глушник",
+    "Description": "Зниження шуму та викидів вихлопної системи.",
+    "Image": "muffler.webp"
+  },
+  {
+    "Name": "Котушка запалювання",
+    "Description": "Стабільне запалювання паливної суміші.",
+    "Image": "ignition_coil.webp"
+  },
+  {
+    "Name": "Датчик кисню",
+    "Description": "Контроль складу вихлопних газів.",
+    "Image": "oxygen_sensor.webp"
+  },
+  {
+    "Name": "Колодки стоянкового гальма",
+    "Description": "Надійне утримання авто на місці.",
+    "Image": "parking_brake_pads.jpg"
+  },
+  {
+    "Name": "Підшипник ступиці",
+    "Description": "Гладке обертання коліс без шуму.",
+    "Image": "wheel_hub_bearing.jpg"
+  },
+  {
+    "Name": "Кульова опора",
+    "Description": "Забезпечення маневреності та стабільності.",
+    "Image": "ball_joint.jpg"
+  }
 ]

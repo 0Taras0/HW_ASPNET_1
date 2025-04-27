@@ -1,0 +1,177 @@
+﻿@model WebSmonder.Models.Account.AccountProfileViewModel
+
+@{
+    ViewData["Title"] = "Профіль";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Профіль</h1>
+
+    <div class="row p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
+        <div class="offset-md-3 col-md-6">
+            <form asp-action="Profile">
+                <div class="d-flex flex-column align-items-center justify-content-center mb-3" style="position: relative;">
+                    <div class="position-relative" style="width: 200px; height: 200px;">
+                        <img loading="lazy" id="currentImage" src="/images/1200_@Model.ViewImage"
+                             class="img-thumbnail"
+                             style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" />
+
+                        <button type="button" class="btn btn-primary position-absolute"
+                                style="bottom: 10px; right: 10px; padding: 5px 10px; font-size: 12px;"
+                                id="openCropperModalBtn">
+                            ✏️
+                        </button>
+                    </div>
+
+                    <span asp-validation-for="Image" class="text-danger mt-2"></span>
+                </div>
+
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="UserName" class="form-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="FirstName" class="form-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="LastName" class="form-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="PhoneNumber" class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                
+
+                <input asp-for="Image" type="file" class="d-none" id="ImageFile" accept="image/*" />
+                <div class="mb-3">
+                    <input type="submit" value="Зберегти" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cropperModal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Обрізати зображення</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+            </div>
+            <div class="modal-body text-center d-flex justify-content-center">
+                <img id="cropperImage" class="img-fluid w-50" style="height: 50vh; width: 50vh; object-fit: contain;" />
+            </div>
+            <input type="file" id="selectNewImageBtn" class="form-control mt-3" accept="image/*" />
+            <div class="modal-footer">
+                <button type="button" id="saveCroppedBtn" class="btn btn-success" data-bs-dismiss="modal">Зберегти</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <script>
+        let cropper;
+        const openModalBtn = document.getElementById('openCropperModalBtn');
+        const imageInput = document.getElementById('ImageFile');
+        const selectNewImageBtn = document.getElementById('selectNewImageBtn');
+        const cropperImage = document.getElementById('cropperImage');
+        const currentImage = document.getElementById('currentImage');
+        const saveCroppedBtn = document.getElementById('saveCroppedBtn');
+        const cropperModal = new bootstrap.Modal(document.getElementById('cropperModal'));
+
+        openModalBtn.addEventListener('click', () => {
+            cropperImage.src = currentImage.src;
+            cropperModal.show();
+
+            setTimeout(() => {
+                requestAnimationFrame(() => {
+                    if (cropper) cropper.destroy();
+
+                    cropper = new Cropper(cropperImage, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        autoCropArea: 1,
+                        responsive: true,
+                        movable: true,
+                        zoomable: true
+                    });
+                });
+            }, 100);
+        });
+
+        selectNewImageBtn.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const url = URL.createObjectURL(file);
+                cropperImage.src = url;
+
+                cropperImage.onload = () => {
+                    if (cropper) cropper.destroy();
+                    cropper = new Cropper(cropperImage, {
+                        aspectRatio: 1,
+                        viewMode: 1,
+                        autoCropArea: 1,
+                        responsive: true,
+                        movable: true,
+                        zoomable: true
+                    });
+                };
+            }
+        });
+
+        saveCroppedBtn.addEventListener('click', () => {
+            if (cropper) {
+                cropper.getCroppedCanvas({
+                    width: 500,
+                    height: 500
+                })
+                .toBlob(blob => {
+                    const file = new File([blob], "cropped.png", { type: "image/png" });
+
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(file);
+                    imageInput.files = dataTransfer.files;
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        currentImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }, 'image/png');
+            }
+        });
+
+
+        cropperModal.addEventListener('hidden.bs.modal', function () {
+            selectNewImageBtn.value = "";
+
+            cropperImage.src = "";
+
+            if (cropper) {
+                cropper.destroy();
+                cropper = null;
+            }
+        });
+
+    </script>
+}
