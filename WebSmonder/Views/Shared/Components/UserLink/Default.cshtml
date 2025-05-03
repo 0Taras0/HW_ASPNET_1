@@ -1,0 +1,8 @@
+﻿@model UserLinkViewModel
+
+<li class="nav-item d-flex align-items-center">
+    <a asp-action="Profile" asp-controller="Account" class="d-flex align-items-center text-decoration-none">
+        <img loading="lazy" src="/images/50_@Model.Image" class="rounded-circle me-2" style="width:40px; height:40px; object-fit:cover;" alt="Avatar" />
+        <span class="nav-link p-0">@Model.Name</span>
+    </a>
+</li>

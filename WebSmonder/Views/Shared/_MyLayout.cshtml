@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using WebSmonder.Constants
 @using WebSmonder.Data.Entities.Identity
-@inject UserManager<UserEntity> UserManager
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -17,24 +16,24 @@
         iframe[src*="somee.com"],
         script[src*="ads.mgmt.somee.com"],
         center a[href*="somee.com"] {
-            display: none !important;
+        display: none !important;
         }
 
         div[style*="height: 65px;"] {
-            display: none;
+        display: none;
         }
 
         div[style*="opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; bottom: 0px; height: 65px; right: 0px; display: block; width: 100%; background-color: #202020; margin: 0px; padding: 0px;"] {
-            display: none !important;
+        display: none !important;
         }
 
         center {
-            display: none !important;
+        display: none !important;
         }
 
         .dynamic-height {
-            min-height: 100vh;
-            transition: min-height 0.3s ease;
+        min-height: 100vh;
+        transition: min-height 0.3s ease;
         }
     </style>
 </head>
@@ -51,20 +50,20 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" asp-action="Index" asp-controller="Categories">Головна</a>
                         </li>
+                        @if (User.IsInRole(Roles.Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-area="Admin" asp-controller="Dashboards" asp-action="Index">Адмінка</a>
+                            </li>
+                        }
                     </ul>
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        var currentUser = await UserManager.GetUserAsync(User);
                         <ul class="navbar-nav d-flex align-items-center" style="gap: 15px;">
                             @if (User.IsInRole(Roles.User))
                             {
-                                <li class="nav-item d-flex align-items-center">
-                                    <a asp-action="Profile" asp-controller="Account" class="d-flex align-items-center text-decoration-none">
-                                        <img loading="lazy" src="/images/50_@currentUser.Image" class="rounded-circle me-2" style="width:40px; height:40px; object-fit:cover;" alt="Avatar" />
-                                        <span class="nav-link p-0">@User.Identity.Name</span>
-                                    </a>
-                                </li>
+                                @await Component.InvokeAsync("UserLink");
                             }
                             else
                             {

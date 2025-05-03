@@ -11,6 +11,7 @@ namespace WebSmonder.Models.Account
 
         [Display(Name = "Пароль")]
         [Required(ErrorMessage = "Поле пароль обов'язкове для заповнення")]
+        [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
     }
 }

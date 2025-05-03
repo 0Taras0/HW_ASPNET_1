@@ -1,0 +1,352 @@
+@{
+	TempData.Keep();
+	string? currentPage = ViewContext.HttpContext.Request.Path;
+}
+
+<!-- Menu -->
+@* ! Do this simple *@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
+	@* ! Hide app brand if navbar-full *@
+	<div class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
+		<a asp-controller="Dashboards" asp-action="Index" class="app-brand-link">
+			<span class="app-brand-logo demo me-1">  @await Html.PartialAsync("../_Partials/_Macros")</span>
+			<span class="app-brand-text demo menu-text fw-semibold ms-2">@TempData.Peek("appName")</span>
+		</a>
+
+		<a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+			<i class="menu-toggle-icon d-xl-block align-middle"></i>
+		</a>
+	</div>
+
+	<div class="menu-inner-shadow"></div>
+
+	@* ! Full version menu-items *@
+	<ul class="menu-inner py-1">
+
+		<!-- Users -->
+		<li class='menu-item@(currentPage.EndsWith("/admin") || currentPage.StartsWith("/Users") ? " active open" : "")'>
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-layout-left-line"></i>
+				<div>Account Settings</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin" ? " active" : "")'>
+					<a asp-controller="Users" asp-action="Index" class="menu-link">
+						<div>Користувачі</div>
+					</a>
+				</li>
+
+			</ul>
+		</li>
+
+
+		<!-- Layouts -->
+		<li class='menu-item@(currentPage.StartsWith("/admin/LayoutExamples") ? " active open" : "")'>
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-layout-2-line"></i>
+				<div>Layouts</div>
+			</a>
+
+			<ul class="menu-sub">
+
+				<li class='menu-item@(currentPage == "/admin/LayoutExamples/WithoutMenu" ? " active" : "")'>
+					<a asp-controller="LayoutExamples" asp-action="WithoutMenu" class="menu-link">
+						<div>Without menu</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/LayoutExamples/WithoutNavbar" ? " active" : "")'>
+					<a asp-controller="LayoutExamples" asp-action="WithoutNavbar" class="menu-link">
+						<div>Without navbar</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/LayoutExamples/Container" ? " active" : "")'>
+					<a asp-controller="LayoutExamples" asp-action="Container" class="menu-link">
+						<div>Container</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/LayoutExamples/Fluid" ? " active" : "")'>
+					<a asp-controller="LayoutExamples" asp-action="Fluid" class="menu-link">
+						<div>Fluid</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/LayoutExamples/Blank" ? " active" : "")'>
+					<a asp-controller="LayoutExamples" asp-action="Blank" class="menu-link">
+						<div>Blank</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+
+
+		<!-- Pages -->
+		<li class='menu-item@(currentPage.StartsWith("/admin/Pages") ? " active open" : "")'>
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-layout-left-line"></i>
+				<div>Account Settings</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin/Pages/AccountSettings" ? " active" : "")'>
+					<a asp-controller="Pages" asp-action="AccountSettings" class="menu-link">
+						<div>Account</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Pages/AccountSettingsNotifications" ? " active" : "")'>
+					<a asp-controller="Pages" asp-action="AccountSettingsNotifications" class="menu-link">
+						<div>Notifications</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Pages/AccountSettingsConnections" ? " active" : "")'>
+					<a asp-controller="Pages" asp-action="AccountSettingsConnections" class="menu-link">
+						<div>Connections</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class='menu-item@(currentPage.StartsWith("/admin/Auth") ? " active open" : "")'>
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-shield-keyhole-line"></i>
+				<div>Authentications</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin/Auth/LoginBasic" ? " active" : "")'>
+					<a asp-controller="Auth" asp-action="LoginBasic" class="menu-link" target="_blank">
+						<div>Login</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Auth/RegisterBasic" ? " active" : "")'>
+					<a asp-controller="Auth" asp-action="RegisterBasic" class="menu-link" target="_blank">
+						<div>Register</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Auth/ForgotPasswordBasic" ? " active" : "")'>
+					<a asp-controller="Auth" asp-action="ForgotPasswordBasic" class="menu-link" target="_blank">
+						<div>Forgot Password</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class='menu-item@(currentPage.StartsWith("/admin/Pages/Misc") ? " active open" : "")'>
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-box-3-line"></i>
+				<div>Misc</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin/Pages/MiscError" ? " active" : "")'>
+					<a asp-controller="Pages" asp-action="MiscError" class="menu-link" target="_blank">
+						<div>Error</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Pages/MiscUnderMaintenance" ? " active" : "")'>
+					<a asp-controller="Pages" asp-action="MiscUnderMaintenance" class="menu-link" target="_blank">
+						<div>Under Maintenance</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<!-- Components -->
+		<li class="menu-header mt-7"><span class="menu-header-text">Components</span></li>
+		<!-- Cards -->
+		<li class='menu-item@(currentPage == "/admin/Cards/Basic" ? " active" : "")'>
+			<a asp-controller="Cards" asp-action="Basic" class="menu-link">
+				<i class="menu-icon tf-icons ri-bank-card-2-line"></i>
+				<div>Cards</div>
+			</a>
+		</li>
+		<!-- User interface -->
+		<li class='menu-item@(currentPage.StartsWith("/admin/Ui") ? " active open" : "")'>
+			<a href="javascript:void(0)" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-toggle-line"></i>
+				<div>User interface</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin/Ui/Accordion" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Accordion" class="menu-link">
+						<div>Accordion</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Alerts" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Alerts" class="menu-link">
+						<div>Alerts</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Badges" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Badges" class="menu-link">
+						<div>Badges</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Buttons" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Buttons" class="menu-link">
+						<div>Buttons</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Carousel" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Carousel" class="menu-link">
+						<div>Carousel</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Collapse" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Collapse" class="menu-link">
+						<div>Collapse</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Dropdowns" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Dropdowns" class="menu-link">
+						<div>Dropdowns</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Footer" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Footer" class="menu-link">
+						<div>Footer</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/ListGroups" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="ListGroups" class="menu-link">
+						<div>List Groups</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Modals" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Modals" class="menu-link">
+						<div>Modals</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Navbar" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Navbar" class="menu-link">
+						<div>Navbar</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Offcanvas" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Offcanvas" class="menu-link">
+						<div>Offcanvas</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/PaginationBreadcrumbs" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="PaginationBreadcrumbs" class="menu-link">
+						<div>Pagination &amp; Breadcrumbs</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Progress" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Progress" class="menu-link">
+						<div>Progress</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Spinners" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Spinners" class="menu-link">
+						<div>Spinners</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/TabsPills" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="TabsPills" class="menu-link">
+						<div>Tabs &amp; Pills</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Toasts" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Toasts" class="menu-link">
+						<div>Toasts</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/TooltipsPopovers" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="TooltipsPopovers" class="menu-link">
+						<div>Tooltips &amp; popovers</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Ui/Typography" ? " active" : "")'>
+					<a asp-controller="Ui" asp-action="Typography" class="menu-link">
+						<div>Typography</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+
+		<!-- Extended components -->
+		<li class='menu-item@(currentPage.StartsWith("/admin/ExtendedUi") ? " active open" : "")'>
+			<a href="javascript:void(0)" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-box-3-line"></i>
+				<div>Extended UI</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin/ExtendedUi/PerfectScrollbar" ? " active" : "")'>
+					<a asp-controller="ExtendedUi" asp-action="PerfectScrollbar" class="menu-link">
+						<div>Perfect scrollbar</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/ExtendedUi/TextDivider" ? " active" : "")'>
+					<a asp-controller="ExtendedUi" asp-action="TextDivider" class="menu-link">
+						<div>Text Divider</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+
+		<!-- Icons -->
+		<li class='menu-item@(currentPage == "/admin/Icons/RiIcons" ? " active" : "")'>
+			<a asp-controller="Icons" asp-action="RiIcons" class="menu-link">
+				<i class="menu-icon tf-icons ri-remixicon-line"></i>
+				<div>Icons</div>
+			</a>
+		</li>
+
+		<!-- Forms & Tables -->
+		<li class="menu-header mt-7"><span class="menu-header-text">Forms &amp; Tables</span></li>
+		<!-- Forms -->
+		<li class='menu-item@(currentPage.StartsWith("/admin/Forms") ? " active open" : "")'>
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-radio-button-line"></i>
+				<div>Form Elements</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin/Forms/BasicInputs" ? " active" : "")'>
+					<a asp-controller="Forms" asp-action="BasicInputs" class="menu-link">
+						<div>Basic Inputs</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/Forms/InputGroups" ? " active" : "")'>
+					<a asp-controller="Forms" asp-action="InputGroups" class="menu-link">
+						<div>Input groups</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<li class='menu-item@(currentPage.StartsWith("/admin/FormLayouts") ? " active open" : "")'>
+			<a href="javascript:void(0);" class="menu-link menu-toggle">
+				<i class="menu-icon tf-icons ri-box-3-line"></i>
+				<div>Form Layouts</div>
+			</a>
+			<ul class="menu-sub">
+				<li class='menu-item@(currentPage == "/admin/FormLayouts/Vertical" ? " active" : "")'>
+					<a asp-controller="FormLayouts" asp-action="Vertical" class="menu-link">
+						<div>Vertical Form</div>
+					</a>
+				</li>
+				<li class='menu-item@(currentPage == "/admin/FormLayouts/Horizontal" ? " active" : "")'>
+					<a asp-controller="FormLayouts" asp-action="Horizontal" class="menu-link">
+						<div>Horizontal Form</div>
+					</a>
+				</li>
+			</ul>
+		</li>
+		<!-- Tables -->
+		<li class='menu-item@(currentPage == "/admin/Tables/Basic" ? " active" : "")'>
+			<a asp-controller="Tables" asp-action="Basic" class="menu-link">
+				<i class="menu-icon tf-icons ri-table-alt-line"></i>
+				<div>Tables</div>
+			</a>
+		</li>
+		<!-- Misc -->
+		<li class="menu-header mt-7"><span class="menu-header-text">Misc</span></li>
+		<li class="menu-item">
+			<a href='@TempData.Peek("support")' target="_blank" class="menu-link">
+				<i class="menu-icon tf-icons ri-lifebuoy-line"></i>
+				<div>Support</div>
+			</a>
+		</li>
+		<li class="menu-item">
+			<a href='@TempData.Peek("documentation")' target="_blank" class="menu-link">
+				<i class="menu-icon tf-icons ri-article-line"></i>
+				<div>Documentation</div>
+			</a>
+		</li>
+	</ul>
+
+</aside>
+<!-- / Menu -->
