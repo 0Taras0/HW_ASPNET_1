@@ -1,0 +1,123 @@
+[
+  {
+    "Name": "Гальмівні колодки Bosch BP432",
+    "Description": "Передні дискові колодки для легкових авто.",
+    "CategoryName": "Автозапчастини",
+    "Images": [
+      "bosch_brake_pads1.webp",
+      "bosch_brake_pads2.webp"
+    ]
+  },
+  {
+    "Name": "Фільтр масляний Mann W 75/3",
+    "Description": "Масляний фільтр для бензинових і дизельних двигунів.",
+    "CategoryName": "Автозапчастини",
+    "Images": [
+      "mann_oil_filter1.webp"
+    ]
+  },
+  {
+    "Name": "Переднє ліве крило Ford Focus 2",
+    "Description": "Кузовна деталь з ґрунтовим покриттям.",
+    "CategoryName": "Кузовні запчастини",
+    "Images": [
+      "ford_fender1.webp"
+    ]
+  },
+  {
+    "Name": "Задній бампер VW Golf VII",
+    "Description": "Оригінальний бампер, нефарбований.",
+    "CategoryName": "Кузовні запчастини",
+    "Images": [
+      "vw_bumper1.webp",
+      "vw_bumper2.webp"
+    ]
+  },
+  {
+    "Name": "Моторна олива Liqui Moly 5W-30 4л",
+    "Description": "Синтетична олива для сучасних бензинових двигунів.",
+    "CategoryName": "Оливи, рідини і автохімія",
+    "Images": [
+      "liqui_moly_oil1.webp"
+    ]
+  },
+  {
+    "Name": "Антифриз G12 червоний 5л",
+    "Description": "Концентрат охолоджувальної рідини, до -40°C.",
+    "CategoryName": "Оливи, рідини і автохімія",
+    "Images": [
+      "g12_antifreeze.webp"
+    ]
+  },
+  {
+    "Name": "Шини Michelin Pilot Sport 4 225/45 R17",
+    "Description": "Літні шини з відмінним зчепленням на сухій дорозі.",
+    "CategoryName": "Шини та диски",
+    "Images": [
+      "michelin_ps4.webp"
+    ]
+  },
+  {
+    "Name": "Легкосплавні диски R17 Mak",
+    "Description": "Італійські литі диски для легкових авто.",
+    "CategoryName": "Шини та диски",
+    "Images": [
+      "mak_rims.webp"
+    ]
+  },
+  {
+    "Name": "Світлодіодні лампи H7 Philips Ultinon",
+    "Description": "Яскраве та довговічне LED-освітлення.",
+    "CategoryName": "Освітлення",
+    "Images": [
+      "philips_led_h7_1.webp",
+      "philips_led_h7_2.webp"
+    ]
+  },
+  {
+    "Name": "Протитуманні фари Bosch",
+    "Description": "Комплект додаткового освітлення для переднього бампера.",
+    "CategoryName": "Освітлення",
+    "Images": [
+      "bosch_fog_lights_1.webp",
+      "bosch_fog_lights_2.webp"
+    ]
+  },
+  {
+    "Name": "Магнітола Pioneer MVH-S120UB",
+    "Description": "USB, AUX, FM, підтримка FLAC. Підсвічування дисплея.",
+    "CategoryName": "Аудіо та електроніка",
+    "Images": [
+      "pioneer_radio_1.webp",
+      "pioneer_radio_2.webp",
+      "pioneer_radio_3.webp"
+    ]
+  },
+  {
+    "Name": "Парктронік ParkSafe PS-4",
+    "Description": "Сенсори для заднього бампера з дисплеєм.",
+    "CategoryName": "Аудіо та електроніка",
+    "Images": [
+      "parksafe_sensor.webp"
+    ]
+  },
+  {
+    "Name": "Набір інструментів INTERTOOL 94 од.",
+    "Description": "Набір головок, тріскачок та ключів у кейсі.",
+    "CategoryName": "Інструменти і обладнання",
+    "Images": [
+      "intertool_set_1.webp",
+      "intertool_set_2.webp"
+    ]
+  },
+  {
+    "Name": "Домкрат гідравлічний 2т",
+    "Description": "Компактний гідравлічний домкрат пляшкового типу.",
+    "CategoryName": "Інструменти і обладнання",
+    "Images": [
+      "jack_2t_1.webp",
+      "jack_2t_2.webp",
+      "jack_2t_3.webp"
+    ]
+  }
+]

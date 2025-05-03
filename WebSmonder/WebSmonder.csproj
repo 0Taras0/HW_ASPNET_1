@@ -24,13 +24,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Helpers\JsonData\Products.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Helpers\JsonData\Categories.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Helpers\SeedImages\Products\" />
     <Folder Include="Helpers\SeedImages\Users\" />
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\pictures\" />
   </ItemGroup>
 

@@ -21,6 +21,15 @@ namespace WebSmonder.Areas.Admin.Controllers
                 .ProjectTo<UserItemViewModel>(mapper.ConfigurationProvider)
                 .ToListAsync();
 
+            foreach (var user in model)
+            {
+                var entity = await userManager.FindByIdAsync(user.Id.ToString());
+                if (entity == null)
+                    continue;
+                var roles = await userManager.GetRolesAsync(entity);
+                user.Roles = roles.ToList();
+            }
+
             return View(model);
         }
     }

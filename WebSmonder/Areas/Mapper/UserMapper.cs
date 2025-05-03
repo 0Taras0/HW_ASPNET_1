@@ -10,6 +10,7 @@ namespace WebSmonder.Areas.Mapper
         {
             CreateMap<UserEntity, UserItemViewModel>()
             .ForMember(dest => dest.Image, opt => opt.MapFrom(src => src.Image))
+            .ForMember(dest => dest.Roles, opt => opt.Ignore())
             .ReverseMap();
 
 

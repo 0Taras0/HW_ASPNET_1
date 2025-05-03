@@ -30,6 +30,77 @@ namespace WebSmonder.Data
 
             await SeedUsers(context, mapper, userManager, imageService);
 
+            await SeedProducts(context, mapper, imageService);
+
+        }
+
+        private static async Task SeedProducts(AppSmonderDbContext context, IMapper mapper, IImageService imageService)
+        {
+            if (!context.Products.Any())
+            {
+                var jsonFile = Path.Combine(Directory.GetCurrentDirectory(), "Helpers", "JsonData", "Products.json");
+
+                if (File.Exists(jsonFile))
+                {
+                    var jsonData = await File.ReadAllTextAsync(jsonFile);
+                    try
+                    {
+                        var products = JsonSerializer.Deserialize<List<SeederProductModel>>(jsonData);
+
+                        foreach (var product in products)
+                        {
+                            var category = await context.Categories
+                                .FirstOrDefaultAsync(c => c.Name == product.CategoryName);
+
+                            if (category == null)
+                            {
+                                Console.WriteLine($"Category '{product.CategoryName}' not found for product '{product.Name}'");
+                                continue;
+                            }
+
+                            var productEntity = new ProductEntity
+                            {
+                                Name = product.Name,
+                                Description = product.Description,
+                                CategoryId = category.Id,
+                                ProductImages = new List<ProductImageEntity>()
+                            };
+
+                            int priority = 0;
+
+                            for (int i = 0; i < product.Images.Count; i++)
+                            {
+                                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "Helpers", "SeedImages", "Products", product.Images[i]);
+                                var formFile = await LoadImageAsFormFileAsync(imagePath, product.Images[i]);
+                                if (formFile == null)
+                                {
+                                    Console.WriteLine($"Image file not found: {product.Images[i]}");
+                                    continue;
+                                }
+
+                                var savedImageUrl = await imageService.SaveImageAsync(formFile);
+                                productEntity.ProductImages.Add(new ProductImageEntity
+                                {
+                                    Name = savedImageUrl,
+                                    Priotity = priority++
+                                });
+                            }
+
+                            await context.Products.AddAsync(productEntity);
+                        }
+
+                        await context.SaveChangesAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error Json Parse Product Data: {0}", ex.Message);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Products.json file not found");
+                }
+            }
         }
 
         private async static Task SeedCategories(AppSmonderDbContext context, IMapper mapper, IImageService imageService)

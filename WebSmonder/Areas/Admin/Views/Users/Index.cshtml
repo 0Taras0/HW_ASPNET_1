@@ -16,6 +16,7 @@
 					<th>Name</th>
 					<th>Email</th>
 					<th>Phone</th>
+					<th>Role</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -29,6 +30,8 @@
 						<td>@item.LastName @item.FirstName</td>
 						<td>@item.Email</td>
 						<td>@item.PhoneNumber</td>
+						<td>
+							<span class="badge bg-label-primary me-1">@String.Join(", ", item.Roles)</span>
 						<td>
 							<div class="dropdown">
 								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
