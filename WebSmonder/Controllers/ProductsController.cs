@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using WebSmonder.Data;
-using WebSmonder.Interfaces;
 using WebSmonder.Models.Product;
 
 namespace WebSmonder.Controllers;
