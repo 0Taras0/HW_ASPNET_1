@@ -1,0 +1,63 @@
+﻿@using System.Text.RegularExpressions
+@using WebSmonder.Areas.Admin.Models.Products
+@model List<ProductItemViewModel>
+@{
+
+	ViewData["Title"] = "Адмін панель - Продукти";
+
+}
+
+<div class="card">
+	<h5 class="card-header">Продукти</h5>
+	<div class="table-responsive text-nowrap">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Image</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Category</th>
+				</tr>
+			</thead>
+			<tbody class="table-border-bottom-0">
+				@foreach (var item in Model)
+				{
+					<tr>
+						<td>@item.Id</td>
+						<td>
+							<div class="d-flex justify-content-center align-items-center gap-3">
+								@foreach (var img in item.Images)
+								{
+									<img style="max-width: 100px; height: 100%"
+										 src="/images/200_@img" />
+								}
+							</div>
+						</td>
+						<td>@item.Name</td>
+						<td style="max-width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+							<td style="max-width: 300px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+								@Html.Raw(
+										item.Description != null
+										? Regex.Replace(item.Description, "<.*?>", "").Substring(0, Math.Min(50, Regex.Replace(item.Description, "<.*?>", "").Length)) + "..."
+										: ""
+										)
+						</td>
+						</td>
+
+						<td>@item.CategoryName</td>
+						<td>
+							<div class="dropdown">
+								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ri-more-2-line"></i></button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item"><i class="ri-pencil-line me-1"></i> Edit</a>
+									<a class="dropdown-item"><i class="ri-delete-bin-6-line me-1"></i> Delete</a>
+								</div>
+							</div>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
