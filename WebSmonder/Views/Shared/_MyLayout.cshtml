@@ -64,11 +64,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <ul class="navbar-nav d-flex align-items-center" style="gap: 15px;">
-                            @if (User.IsInRole(Roles.User))
-                            {
-                                @await Component.InvokeAsync("UserLink");
-                            }
-                            else
+                            @if (!User.IsInRole(Roles.User))
                             {
                                 <li class="nav-item d-flex align-items-center">
                                     <a class="d-flex align-items-center text-decoration-none">
@@ -76,6 +72,10 @@
                                         <span class="nav-link active p-0 user-select-none">Адмін Адмінович</span>
                                     </a>
                                 </li>
+                            }
+                            else
+                            {
+                                @await Component.InvokeAsync("UserLink");
                             }
                             <li class="nav-item">
                                 @using (Html.BeginForm("Logout", "Account", FormMethod.Post))

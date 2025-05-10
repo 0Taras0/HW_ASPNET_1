@@ -7,6 +7,7 @@ using WebSmonder.Data.Entities;
 using WebSmonder.Data.Entities.Identity;
 using WebSmonder.Interfaces;
 using WebSmonder.Models.Seeder;
+using WebSmonder.SMTP;
 
 namespace WebSmonder.Data
 {
@@ -21,6 +22,23 @@ namespace WebSmonder.Data
             var imageService = scope.ServiceProvider.GetRequiredService<IImageService>();
 
             var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+            var smtpService = scope.ServiceProvider.GetRequiredService<ISMTPService>();
+
+            //webApplication.Use(async (context, next) =>
+            //{
+            //    var host = context.Request.Host;
+
+            //    Message message = new Message
+            //    {
+            //        Body = $"Додаток успішно запущено {DateTime.Now}",
+            //        Subject = $"Запуск додатку {host}",
+            //        To = "mehiwar472@nutrv.com"
+            //    };
+            //    await smtpService.SendMessage(message);
+            //    Console.WriteLine($"------------{host}---------------");
+
+            //    await next.Invoke();
+            //});
 
             context.Database.Migrate();
 
@@ -31,7 +49,6 @@ namespace WebSmonder.Data
             await SeedUsers(context, mapper, userManager, imageService);
 
             await SeedProducts(context, mapper, imageService);
-
         }
 
         private static async Task SeedProducts(AppSmonderDbContext context, IMapper mapper, IImageService imageService)

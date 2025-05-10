@@ -22,9 +22,14 @@
                     <input asp-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
+                <div class="mb-2 text-end">
+                    <a asp-action="ForgotPassword"
+                       class="btn btn-link">Відновити пароль</a>
+                </div>
+
                 <div class="mb-3">
                     <input type="submit" value="Вхід" class="btn btn-primary" />
-                    <a asp-action="Register" class="btn btn-link">Реєструватися</a>
+                    <a asp-action="Register" class="btn btn-light">Реєструватися</a>
                 </div>
             </form>
         </div>
