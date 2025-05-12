@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using WebSmonder.Data.Entities;
 using WebSmonder.Models.Category;
+using WebSmonder.Models.Helpers;
 namespace WebSmonder.Mapper;
 
 public class CategoryMapper : Profile
@@ -20,5 +21,7 @@ public class CategoryMapper : Profile
 
         CreateMap<CategoryEntity, CategoryDeleteViewModel>()
             .ReverseMap();
+
+        CreateMap<CategoryEntity, SelectItemViewModel>();
     }
 }

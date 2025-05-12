@@ -1,0 +1,68 @@
+﻿@using WebSmonder.Models.Product
+@model DeleteProductViewModel
+
+@{
+    ViewData["Title"] = "Видалення продукту";
+    string modalId = $"modal-desc-{Model.Id}";
+}
+
+<div class="container mt-5">
+    <form asp-action="Delete" method="post" class="p-4 shadow rounded bg-light" style="max-width: 600px; margin: auto;">
+        <h4 class="mb-4 text-center">Ви дійсно хочете видалити продукт?</h4>
+
+        <!-- Назва продукту -->
+        <div class="mb-3">
+            <label class="form-label">Назва продукту:</label>
+            <div class="form-control-plaintext fw-bold">@Model.Name</div>
+        </div>
+
+        <!-- Опис -->
+        <div class="mb-3">
+            <label class="form-label d-block">Опис:</label>
+            <div>
+                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#@modalId">
+                    Переглянути опис
+                </button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="@modalId-Label" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="@modalId-Label">Опис: @Model.Name</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="description-content">
+                            @Html.Raw(Model.Description)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Зображення -->
+        <div class="mb-3">
+            <label class="form-label">Зображення:</label>
+            @foreach (var image in Model.ProductImageNames)
+            {
+                @if (!string.IsNullOrEmpty(image))
+                {
+                    <div class="mt-2">
+                        <img src="/images/400_@image" alt="Зображення продукту" class="img-fluid rounded" style="max-height: 200px;" />
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- Кнопки -->
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-danger">Видалити продукт</button>
+            <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+        </div>
+    </form>
+</div>

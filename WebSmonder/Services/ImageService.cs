@@ -1,7 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Webp;
 using SixLabors.ImageSharp.Processing;
-using System.Threading.Tasks;
 using WebSmonder.Interfaces;
 
 namespace WebSmonder.Services;

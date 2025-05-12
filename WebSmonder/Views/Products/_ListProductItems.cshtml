@@ -1,0 +1,51 @@
+﻿@using WebSmonder.Constants
+@using WebSmonder.Models.Product
+@model IEnumerable<ProductItemViewModel>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        string image = item.Images[0];
+        string modalId = $"modal-desc-{item.Id}";
+
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                <img src="/images/400_@image" class="card-img-top" alt="@item.Name" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name (<i>@item.CategoryName</i>)</h5>
+
+                    <button type="button" class="btn btn-primary btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#@modalId">
+                        Переглянути опис
+                    </button>
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole(Roles.Admin))
+                    {
+                        <div class="d-flex gap-2">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Редагувати</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Видалити</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="@modalId" tabindex="-1" aria-labelledby="@modalId-Label" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="@modalId-Label">Опис: @item.Name</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="description-content">
+                            @Html.Raw(item.Description)
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
