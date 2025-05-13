@@ -32,6 +32,14 @@
         </div>
     </div>
 
+    <div class="col-md-3">
+        <div class="mb-3">
+            <label asp-for="Pagination.PageSize" class="form-label"></label>
+            <input asp-for="Pagination.PageSize" class="form-control">
+        </div>
+    </div>
+    <input asp-for="Pagination.Page" hidden>
+
     <div class="col-md-3 d-flex align-items-center justify-content-center">
         <input type="submit" value="Пошук" class="btn btn-primary" />
         <a asp-action="Index" class="ms-2 btn btn-info">Очистити</a>

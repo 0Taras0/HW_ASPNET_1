@@ -47,8 +47,19 @@ public class ProductsController(AppSmonderDbContext context,
         var model = new ProductListViewModel();
 
         //Відбір тих елементів, які відображаються на сторінці
+        int count = query.Count();
+        query = query
+            .Skip((searchModel.Pagination.Page - 1) * searchModel.Pagination.PageSize)
+            .Take(searchModel.Pagination.PageSize);
         model.Products = mapper.ProjectTo<ProductItemViewModel>(query).ToList();
         model.Search = searchModel;
+
+        model.Search.Pagination = new PaginationItemViewModel
+        {
+            Page = searchModel.Pagination.Page,
+            PageSize = searchModel.Pagination.PageSize,
+            TotalCount = count
+        };
 
         model.Count = query.Count();
         return View(model);

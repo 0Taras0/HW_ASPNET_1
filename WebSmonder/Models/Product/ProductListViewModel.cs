@@ -1,4 +1,6 @@
-﻿namespace WebSmonder.Models.Product
+﻿using WebSmonder.Models.Helpers;
+
+namespace WebSmonder.Models.Product
 {
     public class ProductListViewModel
     {

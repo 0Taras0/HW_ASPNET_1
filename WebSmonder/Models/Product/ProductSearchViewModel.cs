@@ -14,5 +14,6 @@ namespace WebSmonder.Models.Product
         public int CategoryId { get; set; }
 
         public List<SelectItemViewModel> Categories { get; set; } = new();
+        public PaginationItemViewModel Pagination { get; set; } = new();
     }
 }

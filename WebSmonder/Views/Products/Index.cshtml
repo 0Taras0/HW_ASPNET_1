@@ -27,5 +27,26 @@
     {
         @await Html.PartialAsync("_ListProductItems", Model.Products)
     }
+    @await Html.PartialAsync("_Pagination", Model.Search)
 </div>
 
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const paginationButtons = document.querySelectorAll('.pagination-button');
+            const pageInput = document.querySelector('input[name="Pagination.Page"]');
+            const searchForm = pageInput.closest('form');
+            const submitButton = searchForm.querySelector('input[type="submit"]');
+
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const page = this.dataset.page;
+                    if (pageInput) pageInput.value = page;
+                    submitButton?.click() || searchForm.submit();
+                });
+            });
+        });
+    </script>
+
+}

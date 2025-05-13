@@ -1,0 +1,57 @@
+﻿@using WebSmonder.Models.Product
+@model ProductSearchViewModel
+
+@if (Model.Pagination.TotalPages > 1)
+{
+    <nav aria-label="Pagination" class="mt-5">
+        <ul class="pagination justify-content-center">
+
+            @if (Model.Pagination.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <button class="page-link pagination-button" data-page="@(Model.Pagination.Page - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </button>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                </li>
+            }
+
+            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            {
+                if (i == Model.Pagination.Page)
+                {
+                    <li class="page-item active">
+                        <span class="page-link">@i</span>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <button class="page-link pagination-button" data-page="@i">@i</button>
+                    </li>
+                }
+            }
+
+            @if (Model.Pagination.HasNextPage)
+            {
+                <li class="page-item">
+                    <button class="page-link pagination-button" data-page="@(Model.Pagination.Page + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </button>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link" aria-hidden="true">&raquo;</span>
+                </li>
+            }
+
+        </ul>
+    </nav>
+}
